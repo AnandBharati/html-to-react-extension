@@ -5,7 +5,8 @@
   "version": "0.0.1",
   "publisher": "Anand Bharati",
   "categories": [
-    "Utilities"
+    "Formatters",
+    "Other"
   ],
   "engines": {
     "vscode": "^1.50.0"
