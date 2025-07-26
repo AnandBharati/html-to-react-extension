@@ -14,6 +14,17 @@ function htmlToReact(html) {
         }
     }
 
+    // Apply custom regex replacements from user settings
+    const customReplacements = config.get('customReplacements', []);
+    for (const custom of customReplacements) {
+        try {
+            const regex = new RegExp(custom.regex, 'g');
+            reactCode = reactCode.replace(regex, custom.replacement);
+        } catch (e) {
+            // Ignore invalid regex
+        }
+    }
+
     // Self-close common void elements
     voidTags.forEach(tag => {
         const regex = new RegExp(`<${tag}([^>]*)>(?!</${tag}>)`, 'gi');
@@ -26,6 +37,10 @@ function htmlToReact(html) {
         reactCode = reactCode.replace(regex, `<${tag}$1 />`);
     });
 
+    // // Remove trailing semicolon if present
+    // if (typeof reactCode === 'string' && reactCode.endsWith(';')) {
+    //     reactCode = reactCode.slice(0, -1);
+    // }
     return reactCode;
 }
 

@@ -4,6 +4,7 @@ const voidTags = [
 ];
 
 // Each rule: configKey, regex, replacement
+// Custom replacements are loaded from user settings in htmlToReact.js
 const conversionRuleConfigs = [
     {
         configKey: 'replaceClassWithClassName',

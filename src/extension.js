@@ -31,16 +31,21 @@ function activate(context) {
             let reactCode = htmlToReact(html);
 
             // Format with Prettier if available
+            let formattedCode = reactCode;
             try {
                 const prettier = require('prettier');
-                reactCode = prettier.format(reactCode, { parser: "babel" });
+                formattedCode = prettier.format(reactCode, {
+                    parser: "babel",
+                    plugins: [require('prettier-plugin-jsx')]
+                });
+                // reactCode = prettier.format(reactCode, { parser: "babel" });
             } catch (e) {
                 vscode.window.showInformationMessage('Prettier not installed, skipping formatting.');
             }
 
             await editor.edit(editBuilder => {
                 // Insert at cursor position
-                editBuilder.insert(editor.selection.active, reactCode);
+                editBuilder.insert(editor.selection.active, formattedCode);
             });
             vscode.window.showInformationMessage('Pasted as React code.');
         } catch (err) {
