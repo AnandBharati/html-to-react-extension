@@ -37,14 +37,28 @@
           "when": "editorHasSelection",
           "group": "navigation"
         }
-      ],
-      "comments/comment/title": [
-        {
-          "command": "extension.convertSelectionToReact",
-          "when": "commentThreadFocus",
-          "group": "navigation"
-        }
       ]
+    },
+    "configuration": {
+      "type": "object",
+      "title": "HTML to React Converter",
+      "properties": {
+        "htmlToReactConverter.replaceClassWithClassName": {
+          "type": "boolean",
+          "default": true,
+          "description": "Replace 'class' attribute with 'className' in JSX."
+        },
+        "htmlToReactConverter.replaceForWithHtmlFor": {
+          "type": "boolean",
+          "default": true,
+          "description": "Replace 'for' attribute with 'htmlFor' in JSX."
+        },
+        "htmlToReactConverter.replaceInlineEventHandlers": {
+          "type": "boolean",
+          "default": true,
+          "description": "Convert inline event handlers (e.g., 'onclick' to 'onClick')."
+        }
+      }
     }
   },
   "scripts": {

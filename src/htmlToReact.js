@@ -1,11 +1,17 @@
-const { conversionRules, voidTags } = require('./constant');
+const vscode = require('vscode');
+const { voidTags, conversionRuleConfigs } = require('./constant');
 
 function htmlToReact(html) {
     let reactCode = html;
 
-    // Apply conversion rules
-    for (const rule of conversionRules) {
-        reactCode = reactCode.replace(rule.regex, rule.replace);
+    // Get user settings
+    const config = vscode.workspace.getConfiguration('htmlToReactConverter');
+
+    // Apply conversion rules based on settings
+    for (const rule of conversionRuleConfigs) {
+        if (config.get(rule.configKey, true)) {
+            reactCode = reactCode.replace(rule.regex, rule.replace);
+        }
     }
 
     // Self-close common void elements
